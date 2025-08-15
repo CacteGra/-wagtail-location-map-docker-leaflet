@@ -1,0 +1,28 @@
+services:
+  backend:
+    build:
+      context: mysite/
+    restart: always
+    image: mysite/backend
+    ports:
+      - "8001:8000"
+    entrypoint: ["/bin/sh","-c"]
+    command:
+    - |
+       ./start.sh
+    networks:
+      - mysite-backend
+    volumes:
+      - static:/app/static
+      - media:/app/media
+      - private:/app/private
+networks:
+  mysite-backend:
+    driver: bridge
+volumes:
+    static:
+      driver: local
+    media:
+      driver: local
+    private:
+      driver: local
