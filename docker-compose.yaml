@@ -9,13 +9,30 @@ services:
     entrypoint: ["/bin/sh","-c"]
     command:
     - |
-       ./start.sh
+       ./wait-for-it.sh db:5433 -- ./start.sh
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-dbname}
+      - POSTGRES_USER=${POSTGRES_DB:-dbuser}
+      - POSTGRES_PASSWORD=${POSTGRES_DB:-dbpasswd}
+      - DB_ENGINE=${DB_ENGINE:-django.contrib.gis.db.backends.postgis}
     networks:
       - mysite-backend
     volumes:
       - static:/app/static
       - media:/app/media
       - private:/app/private
+  db:
+    restart: always
+    image: postgis/postgis:latest
+    ports:
+      - "127.0.0.1:5433:5433"
+    networks:
+      - mysite-backend
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-dbname}
+      - POSTGRES_USER=${POSTGRES_DB:-dbuser}
+      - POSTGRES_PASSWORD=${POSTGRES_DB:-dbpasswd}
+    command: -p 5433
 networks:
   mysite-backend:
     driver: bridge

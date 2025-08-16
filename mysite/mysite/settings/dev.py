@@ -1,6 +1,5 @@
 from .base import *
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -11,6 +10,17 @@ ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+DATABASES = {
+    'default': {
+        'ENGINE': os.environ.get('DB_ENGINE', 'django.db.backends.sqlite3'),
+        'NAME': os.environ.get('POSTGRES_DB', 'dbname'),
+        'USER': os.environ.get('POSTGRES_USER', 'dbuser'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD', 'dbpasswd'),
+        'HOST': 'db',
+        'PORT': '5433',
+    }
+}
+#WAGTAILADMIN_BASE_URL = '127.0.0.1'
 
 try:
     from .local import *
