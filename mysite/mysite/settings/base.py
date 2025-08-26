@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.gis",
     "wagtailgeowidget",
+    "leaflet",
     "maps",
 ]
 
