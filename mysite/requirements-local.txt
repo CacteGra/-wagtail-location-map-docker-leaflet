@@ -1,0 +1,5 @@
+Django>=5.2,<5.3
+wagtail>=7.0,<7.1
+#psycopg2
+wagtailgeowidget==8.2.1
+django-leaflet==0.32.0
