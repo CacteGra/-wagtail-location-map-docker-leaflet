@@ -41,11 +41,12 @@
           layers: L.tileLayer('https://tiles.wmflabs.org/hikebike/{z}/{x}/{y}.png', { maxZoom: 17, attribution: '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>' }),
         };
         var markersLayer = new L.LayerGroup();
-        {% for location in locations %}
-            var latlng = L.latLng(location.location.lat, location.location.lng);
-            locationMarker  = L.marker(latlng);
-            markersLayer.addLayer(locationMarker);
-	{% endfor %}
+	markersLayer.addTo(map);
+	    {% for location in locations %}
+	    var latlng = L.latLng({{ location.y }}, {{ location.x }});
+        locationMarker  = L.marker(latlng);
+        markersLayer.addLayer(locationMarker);
+	    {% endfor %}
     }
   </script>
 {% endblock %}

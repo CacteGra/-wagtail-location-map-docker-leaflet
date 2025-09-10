@@ -7,5 +7,6 @@ class MainPageView(TemplateView):
         from maps.models import Location
 
         context = super(MainPageView, self).get_context_data(**kwargs)
-        context['locations'] = Location.objects.all()
+        context['locations'] = list(Location.objects.values_list('location', flat=True))
+        print(context['locations'])
         return context
