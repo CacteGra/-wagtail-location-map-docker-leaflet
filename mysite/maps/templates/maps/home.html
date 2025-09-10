@@ -42,8 +42,14 @@
         };
         var markersLayer = new L.LayerGroup();
         {% for location in locations %}
-        var latlng = L.latLng(location.location.lat, location.location.lng);
-        locationMarker  = L.marker(latlng);
-        markersLayer.addLayer(locationMarker);
-        {% endfor %}
+            var latlng = L.latLng(location.location.lat, location.location.lng);
+            locationMarker  = L.marker(latlng);
+            markersLayer.addLayer(locationMarker);
+	{% endfor %}
+    }
+  </script>
+{% endblock %}
+
+{% block content %}
+    {% leaflet_map "map" callback="mapInit" %}
 {% endblock %}
